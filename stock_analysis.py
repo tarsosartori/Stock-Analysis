@@ -134,7 +134,7 @@ if __name__ == "__main__":
         EV_R = np.zeros(n) # EV/ Revenues
         EV_EBITDA = np.zeros(n) # EV/EBITDA
         
-        data = np.zeros(n+1)
+        data = np.zeros(9)
         
         for company in stocks:
             site = f'https://finance.yahoo.com/quote/{company}/key-statistics?p={company}'
@@ -144,8 +144,9 @@ if __name__ == "__main__":
                 print(f"Company {company} was not found")
                 sys.exit()
                 
-            for j in range(n+1):
+            for j in range(9):
                 aux = str(statistics[0][1][j])
+                print(aux)
                 if aux != 'nan': 
                     if "B" in aux:
                         aux = aux.replace("B","")
