@@ -112,13 +112,17 @@ if __name__ == "__main__":
 
         stocks = []
         evaluate = company
+        c = 1
         print("Inform the stocks you want to compare:")
         while True:
             temp = input("Enter 0 to exit: ")
-            if temp == '0':
+            if temp == '0' and c > 1:
                 break
+            elif (temp == '0' and c == 1) or (temp in stocks) or (temp == evaluate):
+                print("Enter another stock")
             else:
                 stocks.append(temp)
+                c += 1
         stocks.append(evaluate)
         
         # Parameters to compare
@@ -145,20 +149,22 @@ if __name__ == "__main__":
                 sys.exit()
                 
             for j in range(9):
-                aux = str(statistics[0][1][j])
-                print(aux)
-                if aux != 'nan': 
-                    if "B" in aux:
-                        aux = aux.replace("B","")
-                        aux = float(aux)*1e9
-                    elif "T" in aux:
-                        aux = aux.replace("T","")
-                        aux = float(aux)*1e12    
-                    elif "M" in aux:
-                        aux = aux.replace("M","")
-                        aux = float(aux)*1e6
-                    data[j] = aux
-                
+                try:
+                    aux = str(statistics[0][1][j])
+                    
+                    if aux != 'nan': 
+                        if "B" in aux:
+                            aux = aux.replace("B","")
+                            aux = float(aux)*1e9
+                        elif "T" in aux:
+                            aux = aux.replace("T","")
+                            aux = float(aux)*1e12    
+                        elif "M" in aux:
+                            aux = aux.replace("M","")
+                            aux = float(aux)*1e6
+                        data[j] = aux
+                except:
+                    print(f"Problem with stock {company}")
             market_cap[i] = np.round(data[0]/1e6,2)
             ev[i] = np.round(data[1]/1e6,2)
             Trailing_PE[i] = np.round(data[2],2)
@@ -195,7 +201,7 @@ if __name__ == "__main__":
         DATA=np.vstack(parameters)
 
         # pandas dataframe
-        dataframe = pd.DataFrame(data=DATA,index=stocks,columns=['Market Cap (M)', 'EV (M)','Trailing P/E','Forward P/E','PEG 5 yr','Price/Sales 12 months)','Price/Book 3 months','EV/R','EV/EBITDA'])
+        dataframe = pd.DataFrame(data=DATA,index=stocks,columns=['Market Cap (M)', 'EV (M)','Trailing P/E','Forward P/E','PEG 5 yr','Price/Sales 12 months','Price/Book 3 months','EV/R','EV/EBITDA'])
         pd.set_option("display.max_rows", None, "display.max_columns", None)
        
         dataframe.style.applymap('font-weight: bold',
