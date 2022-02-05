@@ -186,7 +186,6 @@ if __name__ == "__main__":
         difference = np.array([market_cap[-1]/average[0], ev[-1]/average[1], Trailing_PE[-1]/average[2],Forward_PE[-1]/average[3],PEG_5[-1]/average[4],P_R_12[-1]/average[5],P_B_3[-1]/average[6],EV_R[-1]/average[7],EV_EBITDA[-1]/average[8]])
         difference = np.round(difference,2)
         
-        np.set_printoptions(suppress=False)
         
         stocks.insert(0,'Recomendation')
         stocks.append('Average')
@@ -200,12 +199,14 @@ if __name__ == "__main__":
         parameters=(recomendation,DATA)
         DATA=np.vstack(parameters)
 
-        # pandas dataframe
+        # pandas dataframe to compile the data
         dataframe = pd.DataFrame(data=DATA,index=stocks,columns=['Market Cap (M)', 'EV (M)','Trailing P/E','Forward P/E','PEG 5 yr','Price/Sales 12 months','Price/Book 3 months','EV/R','EV/EBITDA'])
         pd.set_option("display.max_rows", None, "display.max_columns", None)
        
         dataframe.style.applymap('font-weight: bold',
                       subset=pd.IndexSlice[dataframe.index[dataframe.index==evaluate], :])
+        
+        np.set_printoptions(suppress=False)
         print(dataframe)
             
             
@@ -248,6 +249,7 @@ if __name__ == "__main__":
         revenues = analyst[1].to_numpy()
         revenues = revenues[1,3:] #  yr yr+1
         
+        #converting values
         for i in range(len(revenues)):
             aux = revenues[i]
             if "B" in aux:
@@ -264,9 +266,8 @@ if __name__ == "__main__":
        
         past_revenues = stock.financials.T
         past_revenues = past_revenues[['Total Revenue']].to_numpy().T # yr-1 yr-2 yr-3 yr-4
-        
         past_revenues = np.flip(past_revenues) # yr-4 yr-3 yr-2 yr-1        
-        
+    
         revenues = np.concatenate([past_revenues[0,:],revenues])  # yr-4 yr-3 yr-2 yr-1 yr yr+1
         
         growth = np.zeros(len(revenues)-1) # calculate the growth rate from the years available
@@ -287,10 +288,11 @@ if __name__ == "__main__":
         #net income margins = net income/revenue
         net_income_margin = np.average(np.abs(net_income_past/revenues[0:4]))
         
-        
+        #net income for the future
         NI_next = revenues[4:]*net_income_margin
         net_income = np.concatenate([net_income_past.astype(np.double),NI_next])
         
+        #free cash flow
         free_cash_flow = np.concatenate([free_cash_flow[0,:],NI_next*free_earnings_rate])
         
         #-----------------------------------------------------------------------------
