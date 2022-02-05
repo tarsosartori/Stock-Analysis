@@ -6,6 +6,9 @@
 * [Setup](#setup)
 
 ## General Info
+This program is intended to help with the stocks valuation. It presents two main functions that will be shown in the beggining of the program execution. Firstly, you can compare stocks by their actual metrics, such as price earnings ratio, price earnings growth, enterprise value, and others . It is necessary to pass the stocks code for the execution. The program will gather the stocks data using the yfinance library, and web scrapping the yahoo finance site utilizing the requests library and show a table with the summary for the companies.
+
+Another functionality implemented is to calculate the company intrinsic value through the discounted cash flow method. This method projects the next three years future cash flows based on the past revenues growth of the company. Then it brings to present moment to estimate the intrinsic value of the stock. This method is inspired on the lecture given on https://www.youtube.com/watch?v=fd_emLLzJnk
 
  ## Technologies
  The technologies used to build this program were:
