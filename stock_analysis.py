@@ -5,6 +5,14 @@ import requests
 import sys
 
 '''
+Disclaimer: This program IS NOT a financial advisor. It is intended to help
+understand the metrics used to evaluate a stock. This tool may help you, 
+but investing your money in the stock market involves many risks. 
+ It is necessary to study very well the market or look for financial advice 
+ from professionals. You can use this tool but proceed at your own risks.
+'''
+
+'''
 Income statements:
     Revenue
         -sales
@@ -328,7 +336,7 @@ if __name__ == "__main__":
         value = (np.round(intrinsic_value/stock.info['currentPrice']-1,2))*100
         
         if(value >= 0):
-            print('underpriced (buy): ', value, '%')
+            print('underpriced: ', value, '%')
         else:
             print('overpriced: ', value, '%')
       
