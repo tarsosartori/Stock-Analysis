@@ -1,2 +1,2 @@
-# Stock Analisys
+# Stock Analysis
 #ola como vai
