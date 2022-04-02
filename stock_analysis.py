@@ -114,7 +114,7 @@ if __name__ == "__main__":
            
     company = input('Inform the company: ') 
 
-    op = input('1 - Compare stocks \n2 - Intrinsic Value by Discouted Cash Flow Method\n')
+    op = input('1 - Compare stocks \n2 - Intrinsic Value by Discounted Cash Flow Method\n')
 
     if op == '1': 
 
