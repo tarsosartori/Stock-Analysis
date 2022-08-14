@@ -215,7 +215,7 @@ if __name__ == "__main__":
                       subset=pd.IndexSlice[dataframe.index[dataframe.index==evaluate], :])
         
         np.set_printoptions(suppress=False)
-        print(dataframe)
+        print(dataframe.to_string())
             
             
             
